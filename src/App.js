@@ -1,3 +1,5 @@
+import { TodosContent } from './TodosContent';
+import { AddTodos } from './AddTodos';
 import React, { useRef } from 'react'
 import './App.css'
 import Dexie from 'dexie'
@@ -30,36 +32,8 @@ const App = () => {
   return (
     <div className="container">
       <h3 className="teal-text center-align">Todo App</h3>
-      <form className="add-item-form" onSubmit={addTask}>
-        <input
-          ref={inputValue}
-          type="text"
-          className="itemField"
-          placeholder="What do you want to do today?"
-          required
-        />
-        <button type="submit" className="waves-effect btn teal right">
-          Add
-        </button>
-      </form>
-
-      <div className="card white darken-1">
-        <div className="card-content">
-        {
-          allItems?.map(({id, completed, task}) =>(
-            <div className="row" key={id}>
-              <p className="col s10">
-                <label>
-                  <input onChange={(event) => toggleStatus(id, event)} type="checkbox" checked={completed} className="checkbox-blue" /> 
-                  <span className={`black-tex ${completed && "strike-text"}`}>{task}</span>
-                </label>
-              </p>
-              <i onClick={()=> deleteTask(id)} className="col s2 material-icons delete-button">delete</i>
-            </div>
-          ))
-        }
-        </div>
-      </div>
+      <AddTodos   addTask={addTask} inputValue={inputValue}  />
+      <TodosContent   allItems={allItems} toggleStatus={toggleStatus} deleteTask={deleteTask}  />
     </div>
   )
 }
